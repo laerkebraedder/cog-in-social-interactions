@@ -1,0 +1,152 @@
+---
+title: "analysis clean"
+author: "Lærke Brædder"
+date: "5/25/2022"
+output: html_document
+---
+
+```{r setup}
+# Loading packages:
+pacman::p_load(tidyverse, mousetrap)
+
+# Loading data
+## !!! Subject-6 was removed from the folder, because I accidentally overwrote the df.
+filePaths <- list.files("Data/", "\\.csv$", full.names = TRUE)
+d <- do.call(rbind, lapply(filePaths, read.csv))
+
+
+# Removing trials where the participant didn't respond
+d <- d[d$response != "None", ]
+
+# Transforming the data frame into a mouse trap object:
+dmt <- mt_import_mousetrap(
+  d,
+  xpos = "xpos_mouse",
+  ypos = "ypos_mouse",
+  timestamps = "timestamps_mouse", #xxx
+)
+
+```
+
+
+```{r rate of cooperation}
+library(dplyr)
+d %>% 
+    group_by(response) %>% 
+    summarise(percent = 100 * n() / nrow(d))
+```
+
+
+
+# 1) Make “Figure 1” by plotting this participant’s mouse trajectories with separate colors for each “trial_type”.
+```{r}
+# Initial plot:
+mt_plot(dmt, color = "response")  # When we look at this plot, we can clearly see that the axes are flipped upside down compared to what we saw in the experiment (this is just due to the values on the coordinate system in OpenSesame). We are going to fix this in the next task, when we flip the axes.
+```
+
+
+# 2) Remap the trajectories to one side.
+```{r}
+# Flip and plot
+dmt <- mt_remap_symmetric(dmt,
+                          remap_xpos = "left",
+                          remap_ypos = "up")
+
+# Replotting (just to see what happens):
+mt_plot(dmt, color = "response") # We now have a plot, where the axes have been flipped upside down so that the visualization resembles the setup of the experiment. Furthermore we have flipped it so that all responses are to the left. This makes it easier to compare between the trial types.
+```
+
+
+# 3) Exclude the initiation time.
+```{r}
+dmt <- mt_exclude_initiation(dmt)
+```
+
+
+
+# 4) Time-normalize the trajectories.
+```{r}
+dmt <- mt_time_normalize(dmt)
+```
+
+
+# 5) Make “Figure 2” by plotting the aggregated normalized trajectories, again with separate colors for each “trial_type”.
+```{r}
+mt_plot_aggregate(
+  dmt,
+  use = "tn_trajectories",
+  color = "response",
+)
+```
+
+
+     
+# 6) Using the normalized trajectories, calculate 4 measures from the data: the signed maximum absolute deviation, the number of directional changes along the x-axis, the area under the curve, and the reaction time.
+```{r}
+# Adding the measures to the dmt:
+dmt_measures <- mt_measures(
+  dmt,
+  use = "tn_trajectories",
+  save_as = "measures",
+  dimensions = c("xpos", "ypos"),
+  timestamps = "timestamps"
+)
+
+# The mean signed maximum absolute deviation across trials for each trial type:
+MAD <- c(
+  mean(dmt_measures$measures$MAD[dmt_measures$data$response == "option_a"]),
+  mean(dmt_measures$measures$MAD[dmt_measures$data$response == "option_b"])
+)
+
+# The mean number of directional changes along the x-axis across trials for each trial type:
+xpos_flips <- c(
+  mean(dmt_measures$measures$xpos_flips[dmt_measures$data$response == "option_a"]),
+  mean(dmt_measures$measures$xpos_flips[dmt_measures$data$response == "option_b"])
+)
+
+# The mean area under the curve across trials for each trial type:
+AUC <- c(
+  mean(dmt_measures$measures$AUC[dmt_measures$data$response == "option_a"]),
+  mean(dmt_measures$measures$AUC[dmt_measures$data$response == "option_b"])
+)
+
+# The mean reaction time across trials for each trial type:
+RT <- c(
+  mean(dmt_measures$measures$RT[dmt_measures$data$response == "option_a"]),
+  mean(dmt_measures$measures$RT[dmt_measures$data$response == "option_b"])
+)
+
+#Writing the measures into a data frame:
+measures_df <- data.frame(rbind(MAD, xpos_flips, AUC, RT))
+measures_df <- dplyr::rename(measures_df, cooperation = 1)
+measures_df <- dplyr::rename(measures_df, defection = 2)
+
+measures_df
+```
+
+```{r t-tests}
+# MAD
+t.test(
+  dmt_measures$measures$MAD[dmt_measures$data$response == "option_a"],
+  dmt_measures$measures$MAD[dmt_measures$data$response == "option_b"]
+)
+
+# xpos flips
+t.test(
+  dmt_measures$measures$xpos_flips[dmt_measures$data$response == "option_a"],
+  dmt_measures$measures$xpos_flips[dmt_measures$data$response == "option_b"]
+)
+
+# AUC
+t.test(
+  dmt_measures$measures$AUC[dmt_measures$data$response == "option_a"],
+  dmt_measures$measures$AUC[dmt_measures$data$response == "option_b"]
+)
+
+# RT
+t.test(
+  dmt_measures$measures$RT[dmt_measures$data$response == "option_a"],
+  dmt_measures$measures$RT[dmt_measures$data$response == "option_b"]
+)
+```
+
