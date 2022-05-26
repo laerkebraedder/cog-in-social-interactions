@@ -1,0 +1,608 @@
+---
+API: 2.1
+OpenSesame: 3.3.8
+Platform: posix
+---
+set width 1024
+set uniform_coordinates yes
+set title "New experiment"
+set subject_parity even
+set subject_nr 0
+set start experiment
+set sound_sample_size -16
+set sound_freq 48000
+set sound_channels 2
+set sound_buf_size 1024
+set round_decimals 2
+set height 768
+set fullscreen no
+set form_clicks no
+set foreground white
+set font_underline no
+set font_size 18
+set font_italic no
+set font_family mono
+set font_bold no
+set experiment_path "/Users/laerkebraedder/Desktop/Uni/Cognition in social interactions/Exam"
+set disable_garbage_collection yes
+set description "The main experiment item"
+set coordinates uniform
+set compensation 0
+set canvas_backend psycho
+set background black
+
+define loop block_loop
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set description "Repeatedly runs another item"
+	set cycles 15
+	set continuous no
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 game_type chicken
+	setcycle 0 R 80
+	setcycle 0 T 160
+	setcycle 0 S 40
+	setcycle 0 P 0
+	setcycle 0 win 0
+	setcycle 1 game_type chicken
+	setcycle 1 R 90
+	setcycle 1 T 180
+	setcycle 1 S 45
+	setcycle 1 P 0
+	setcycle 1 win 1
+	setcycle 2 game_type chicken
+	setcycle 2 R 100
+	setcycle 2 T 200
+	setcycle 2 S 50
+	setcycle 2 P 0
+	setcycle 2 win 0
+	setcycle 3 game_type chicken
+	setcycle 3 R 110
+	setcycle 3 T 220
+	setcycle 3 S 55
+	setcycle 3 P 0
+	setcycle 3 win 1
+	setcycle 4 game_type chicken
+	setcycle 4 R 120
+	setcycle 4 T 140
+	setcycle 4 S 60
+	setcycle 4 P 0
+	setcycle 4 win 0
+	setcycle 5 game_type prisoners
+	setcycle 5 R 80
+	setcycle 5 T 160
+	setcycle 5 S 0
+	setcycle 5 P 40
+	setcycle 5 win 1
+	setcycle 6 game_type prisoners
+	setcycle 6 R 90
+	setcycle 6 T 180
+	setcycle 6 S 0
+	setcycle 6 P 45
+	setcycle 6 win 0
+	setcycle 7 game_type prisoners
+	setcycle 7 R 100
+	setcycle 7 T 200
+	setcycle 7 S 0
+	setcycle 7 P 50
+	setcycle 7 win 1
+	setcycle 8 game_type prisoners
+	setcycle 8 R 110
+	setcycle 8 T 220
+	setcycle 8 S 0
+	setcycle 8 P 55
+	setcycle 8 win 0
+	setcycle 9 game_type prisoners
+	setcycle 9 R 120
+	setcycle 9 T 240
+	setcycle 9 S 0
+	setcycle 9 P 60
+	setcycle 9 win 1
+	setcycle 10 game_type stag
+	setcycle 10 R 140
+	setcycle 10 T 60
+	setcycle 10 S 20
+	setcycle 10 P 60
+	setcycle 10 win 0
+	setcycle 11 game_type stag
+	setcycle 11 R 158
+	setcycle 11 T 68
+	setcycle 11 S 23
+	setcycle 11 P 68
+	setcycle 11 win 1
+	setcycle 12 game_type stag
+	setcycle 12 R 175
+	setcycle 12 T 75
+	setcycle 12 S 25
+	setcycle 12 P 75
+	setcycle 12 win 0
+	setcycle 13 game_type stag
+	setcycle 13 R 193
+	setcycle 13 T 83
+	setcycle 13 S 28
+	setcycle 13 P 83
+	setcycle 13 win 1
+	setcycle 14 game_type stag
+	setcycle 14 R 210
+	setcycle 14 T 90
+	setcycle 14 S 30
+	setcycle 14 P 90
+	setcycle 14 win 0
+	run trial_sequence
+
+define sequence block_sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run reset_feedback always
+	run results_baseline always
+	run time_1 always
+	run block_loop always
+	run new_loop_2 always
+	run finishing always
+
+define sketchpad consent
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Welcome! You are being invited to take part in a research study aiming to investigate the underlying cognitive processes of social decision making. I would like to ask you for your consent to participate in the study and for me to treat your data in agreement with data protection legislation. Before you decide to participate in this study, it is important that you understand why the research is being done and what it will involve. Please take the time to read the following information carefully. Please ask the researcher if there is anything that is not clear or if you need more information. <br /><br />If you volunteer to participate in this study, you will be asked to play a game with the partner sat behind you. This study entails no risks beyond those encountered in normal everyday life, and all data collected from you is fully anonymized.<br /><br />Participation is voluntary and you may withdraw your consent at any time without stating a reason. Should you wish withdraw consent during the experiments, this is done by contacting the investigator responsible for data collection, Lærke Brædder. Notice, that since the experimental data are anonymized immediately upon completion of the experiments, data cannot be withdrawn at a later point in time. <br /><br />By pressing the space bar now, I confirm to have received, read and understood the above information and that: <br /><br />1.	My participation is voluntary, and I may withdraw my consent and discontinue participation in the project at any time as specified. My refusal to participate will not result in any penalty. <br /><br />2.	By signing this agreement, I do not waive any legal rights or release Aarhus University or its agents from liability for negligence. <br /><br />3.	I give my consent to treat my data and to participate as a subject in the study as described above.<br /><br />Press space to consent and continue<br /><br />" x=0 y=32 z_index=0
+
+define sketchpad continue
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="We are now ready to start the game! Press space to continue" x=0 y=0 z_index=0
+
+define sequence experiment
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run consent always
+	run continue always
+	run instructions always
+	run instructions_example_1 always
+	run sneaky_1 always
+	run experimental_loop always
+
+define loop experimental_loop
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set continuous no
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 practice no
+	run block_sequence
+
+define inline_script final_results
+	set description "Executes Python code"
+	___run__
+	#if var.points > var.partnerpoints:
+	#    var.endtext = "Congratulations! You won the game"
+	
+	#else:
+	#    var.endtext = "Final scores:"
+	__end__
+	set _prepare ""
+
+define sketchpad final_results_show
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Final scores" x=0 y=-64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your points:<br />[points]" x=-128 y=0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your partner's points:<br />[partnerpoints]" x=192 y=0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The experiment is now over. Thank you for participating!<br /><br />Please answer a short questionnaire about the experiment. Press space to continue" x=0 y=128 z_index=0
+
+define loop finishing
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set continuous no
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 empty_column ""
+	run new_sequence
+
+define sketchpad fixation
+	set duration 200
+	set description "Displays stimuli"
+	draw fixdot color=white show_if=always style=default x=0 y=0 z_index=0
+
+define sketchpad instructions
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="This is a game of strategy and trust. You and your partner are seasoned bank robbers, but this time you were caught suspiciously close to the crime scene and the police are on to you. The two of you have been taken in to interrogation in separate rooms. In the interrogation room you have the option between keeping silent or telling on your partner in crime. Your actions in the interrogation room can win you points, which will be displayed to you on the screen throughout the game. The ultimate goal is to gain more points than your partner. If you both keep silent, you will both receive an equal, medium amount of points. If you tell on your partner and they do not tell on you, you go free and you gain a significant bonus. However, if they tell on you and you do not tell on them, then you gain only a few to no points, whereas your partner gets the reward. If you both tell on each other, you will again receive equal points, but not nearly as many as if you both keep silent. The specific amount of points to gain will vary from round to round. The points to gain will be shown when you start moving your mouse, and your job is to quickly indicate your answer by clicking one of the boxes in the top corners of the screen as you will be showed on the next slide.<br /><br />It is important that you do not communicate with your partner. A poker face is a must to keep your opponent guessing!<br /><br /><br />Press space to continue<br />" x=-32 y=32 z_index=0
+
+define sketchpad instructions_example_1
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color=turquoise font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Option B:<br />Tell on your <br />partner" x=384 y=-310 z_index=1
+	draw rect color=yellow fill=0 h=96 name=option_a penwidth=1 show_if=always w=192 x=-480 y=-352 z_index=0
+	draw rect color=turquoise fill=0 h=96 name=option_b penwidth=1 show_if=always w=-192 x=480 y=-352 z_index=0
+	draw textline center=1 color=yellow font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Option A:<br />Keep silent" x=-384 y=-320 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=80 x=-192 y=-64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=80 x=-64 y=-64 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=160 x=64 y=-64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=40 x=192 y=-64 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=40 x=-192 y=64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=160 x=-64 y=64 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=0 x=64 y=64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=0 x=192 y=64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="/" x=-128 y=-64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="/" x=128 y=64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="/" x=128 y=-64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="/" x=-128 y=64 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=You x=-256 y=-160 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=choose x=-192 y=-160 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=You x=64 y=-160 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=choose x=128 y=-160 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your partner chooses" x=-384 y=-64 z_index=0
+	draw textline center=1 color=yellow font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="option A" x=-448 y=-32 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your partner chooses" x=-384 y=64 z_index=0
+	draw textline center=1 color=turquoise font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="option B" x=-448 y=96 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your points: 100<br />Your partner's points: 85" x=0 y=-352 z_index=0
+	draw textline center=1 color=turquoise font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="option B" x=224 y=-160 z_index=0
+	draw textline center=1 color=yellow font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="option A" x=-96 y=-160 z_index=0
+	draw arrow arrow_body_length=0.8 arrow_body_width=0.5 arrow_head_width=30 color=pink fill=0 penwidth=1 show_if=always x1=-288 x2=-224 y1=192 y2=-32 z_index=0
+	draw arrow arrow_body_length=0.8 arrow_body_width=0.5 arrow_head_width=30 color=pink fill=0 penwidth=1 show_if=always x1=64 x2=-32 y1=128 y2=-32 z_index=0
+	draw textline center=1 color=pink font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="The blue numbers are the<br />points that you can receive" x=-320 y=224 z_index=0
+	draw textline center=1 color=pink font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="the white numbers are<br />the points your partner<br />can receive" x=96 y=192 z_index=0
+	draw textline center=1 color=pink font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="You need to click one of these<br />boxes with your mouse to indicate<br />your choice." x=32 y=-256 z_index=0
+	draw arrow arrow_body_length=0.8 arrow_body_width=0.5 arrow_head_width=30 color=pink fill=0 penwidth=1 show_if=always x1=-160 x2=-256 y1=-288 y2=-288 z_index=0
+	draw arrow arrow_body_length=0.8 arrow_body_width=0.5 arrow_head_width=30 color=pink fill=0 penwidth=1 show_if=always x1=224 x2=256 y1=-288 y2=-288 z_index=0
+	draw textline center=1 color=pink font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press space to continue" x=352 y=320 z_index=0
+
+define logger logger
+	set description "Logs experimental data"
+	set auto_log yes
+
+define mousetrap_response mousetrap_response
+	__warning_message__
+	draw textline text="Please start moving" x=0 y=0
+	__end__
+	set update_feedback yes
+	set timeout 13000
+	set start_coordinates "0;700"
+	set skip_item no
+	set sketchpad stimulus
+	set save_trajectories yes
+	set reset_mouse no
+	set number_of_buttons 2
+	set mouse_buttons_allowed "left_button;right_button"
+	set max_initiation_time 1000
+	set logging_resolution 10
+	set description "Tracks mouse movements"
+	set correct_button ""
+	set click_required yes
+	set check_initiation_time yes
+	set button4 ""
+	set button3 ""
+	set button2 option_b
+	set button1 option_a
+	set boundaries "upper=no lower=no left=no right=no"
+
+define form_multiple_choice new_form_multiple_choice_1
+	set timeout infinite
+	set spacing 10
+	set question "Was the experiment too long? (press enter when you have chosen your answer)"
+	__options__
+	Yes
+	No
+	Maybe
+	__end__
+	set margins "50;50;50;50"
+	set form_var response
+	set form_title "Form title"
+	set description "A simple multiple choice item"
+	set button_text Ok
+	set allow_multiple yes
+	set advance_immediately yes
+	set _theme gray
+
+define form_text_input new_form_text_input
+	set timeout infinite
+	set spacing 10
+	set rows "1;1;6"
+	set only_render no
+	set margins "50;50;50;50"
+	set form_var response
+	set form_title Title
+	set form_question "Were the instructions clear? Do you have any suggestions for improvement? (press enter when you have written your answer)"
+	set description "A simple text input form"
+	set cols 1
+	set _theme gray
+	widget 0 0 1 1 label text="[form_title]"
+	widget 0 1 1 1 label center=no text="[form_question]"
+	widget 0 2 1 1 text_input focus=yes return_accepts=yes stub="" var="[form_var]"
+
+
+define form_text_input new_form_text_input_1
+	set timeout infinite
+	set spacing 10
+	set rows "1;1;6"
+	set only_render no
+	set margins "50;50;50;50"
+	set form_var response
+	set form_title Title
+	set form_question "Any additional comments? (press enter when you have written your answer)"
+	set description "A simple text input form"
+	set cols 1
+	set _theme gray
+	widget 0 0 1 1 label text="[form_title]"
+	widget 0 1 1 1 label center=no text="[form_question]"
+	widget 0 2 1 1 text_input focus=yes return_accepts=yes stub="" var="[form_var]"
+
+
+define loop new_loop_2
+	set source_file ""
+	set source table
+	set repeat 1
+	set order random
+	set description "Repeatedly runs another item"
+	set cycles 15
+	set continuous no
+	set break_if_on_first yes
+	set break_if never
+	setcycle 0 game_type chicken
+	setcycle 0 R 80
+	setcycle 0 T 160
+	setcycle 0 S 40
+	setcycle 0 P 0
+	setcycle 0 win 1
+	setcycle 1 game_type chicken
+	setcycle 1 R 90
+	setcycle 1 T 180
+	setcycle 1 S 45
+	setcycle 1 P 0
+	setcycle 1 win 0
+	setcycle 2 game_type chicken
+	setcycle 2 R 100
+	setcycle 2 T 200
+	setcycle 2 S 50
+	setcycle 2 P 0
+	setcycle 2 win 1
+	setcycle 3 game_type chicken
+	setcycle 3 R 110
+	setcycle 3 T 220
+	setcycle 3 S 55
+	setcycle 3 P 0
+	setcycle 3 win 0
+	setcycle 4 game_type chicken
+	setcycle 4 R 120
+	setcycle 4 T 140
+	setcycle 4 S 60
+	setcycle 4 P 0
+	setcycle 4 win 1
+	setcycle 5 game_type prisoners
+	setcycle 5 R 80
+	setcycle 5 T 160
+	setcycle 5 S 0
+	setcycle 5 P 40
+	setcycle 5 win 0
+	setcycle 6 game_type prisoners
+	setcycle 6 R 90
+	setcycle 6 T 180
+	setcycle 6 S 0
+	setcycle 6 P 45
+	setcycle 6 win 1
+	setcycle 7 game_type prisoners
+	setcycle 7 R 100
+	setcycle 7 T 200
+	setcycle 7 S 0
+	setcycle 7 P 50
+	setcycle 7 win 0
+	setcycle 8 game_type prisoners
+	setcycle 8 R 110
+	setcycle 8 T 220
+	setcycle 8 S 0
+	setcycle 8 P 55
+	setcycle 8 win 1
+	setcycle 9 game_type prisoners
+	setcycle 9 R 120
+	setcycle 9 T 240
+	setcycle 9 S 0
+	setcycle 9 P 60
+	setcycle 9 win 0
+	setcycle 10 game_type stag
+	setcycle 10 R 140
+	setcycle 10 T 60
+	setcycle 10 S 20
+	setcycle 10 P 60
+	setcycle 10 win 1
+	setcycle 11 game_type stag
+	setcycle 11 R 158
+	setcycle 11 T 68
+	setcycle 11 S 23
+	setcycle 11 P 68
+	setcycle 11 win 0
+	setcycle 12 game_type stag
+	setcycle 12 R 175
+	setcycle 12 T 75
+	setcycle 12 S 25
+	setcycle 12 P 75
+	setcycle 12 win 1
+	setcycle 13 game_type stag
+	setcycle 13 R 193
+	setcycle 13 T 83
+	setcycle 13 S 28
+	setcycle 13 P 83
+	setcycle 13 win 0
+	setcycle 14 game_type stag
+	setcycle 14 R 210
+	setcycle 14 T 90
+	setcycle 14 S 30
+	setcycle 14 P 90
+	setcycle 14 win 1
+	run trial_sequence
+
+define mousetrap_response new_mousetrap_response
+	__warning_message__
+	draw textline text="Please start moving" x=0 y=0
+	__end__
+	set update_feedback no
+	set timeout infinite
+	set start_coordinates "0;700"
+	set skip_item no
+	set sketchpad start
+	set save_trajectories no
+	set reset_mouse yes
+	set number_of_buttons 1
+	set mouse_buttons_allowed "left_button;right_button"
+	set max_initiation_time 1000
+	set logging_resolution 10
+	set description "Tracks mouse movements"
+	set correct_button ""
+	set click_required no
+	set check_initiation_time yes
+	set button4 ""
+	set button3 ""
+	set button2 ""
+	set button1 startbox
+	set boundaries "upper=no lower=no left=no right=no"
+
+define sequence new_sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run final_results always
+	run final_results_show always
+	run new_form_text_input always
+	run new_form_multiple_choice_1 always
+	run new_form_text_input_1 always
+	run new_sketchpad_1 always
+
+define sketchpad new_sketchpad
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[feedback]" x=0 y=0 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your points: [points]<br />Your partner's points: [partnerpoints]" x=0 y=-96 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Press space to continue" x=0 y=96 z_index=0
+
+define sketchpad new_sketchpad_1
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="All done :) Please wait a second for your partner to finish the questionnaire" x=0 y=0 z_index=0
+
+define reset_feedback reset_feedback
+	set description "Resets the feedback variables, such as 'avg_rt' and 'acc'"
+
+define inline_script results_baseline
+	set description "Executes Python code"
+	___run__
+	var.points = 0
+	var.partnerpoints = 0
+	var.feedback = "Okay, we are now ready to start the game. Remember to be quick - you only have a few seconds to make your decision."
+	
+	#var.endtext = "."
+	__end__
+	set _prepare ""
+
+define inline_script results_update
+	set description "Executes Python code"
+	___run__
+	#var.points = var.points + 1
+	if var.response == "option_a" and var.win == 1:
+	    var.points = var.points + var.R
+	    var.partnerpoints = var.partnerpoints + var.R
+	    var.feedback = "Your partner didn't tell on you and you both get a reward"
+	
+	elif var.response == "option_a" and var.win == 0:
+	    var.points = var.points + var.S
+	    var.partnerpoints = var.partnerpoints + var.T
+	    var.feedback = "Your partner told on you and got the bonus"
+	 
+	elif var.response == "option_b" and var.win == 1:
+	    var.points = var.points + var.T
+	    var.partnerpoints = var.partnerpoints + var.S
+	    var.feedback = "Your partner didn't tell on you so you get the bonus"
+	    
+	else:
+	    var.points = var.points + var.P
+	    var.partnerpoints = var.partnerpoints + var.P
+	    var.feedback = "Your partner told on you as well"
+	__end__
+	set _prepare ""
+
+define sketchpad sneaky_1
+	set duration keypress
+	set description "Displays stimuli"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Please wait a moment for your partner to finish reading the instructions<br />...<br />The experimenter will tell you when you can continue" x=0 y=0 z_index=0
+
+define sketchpad start
+	set duration 0
+	set description "Displays stimuli"
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Option B:<br />Tell on your <br />partner" x=384 y=-310 z_index=1
+	draw rect color=white fill=0 h=96 name=option_a penwidth=1 show_if=always w=192 x=-480 y=-352 z_index=0
+	draw rect color=white fill=0 h=96 name=option_b penwidth=1 show_if=always w=-192 x=480 y=-352 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Option A:<br />Keep silent" x=-384 y=-320 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your points: [points]<br />Your partner's points: [partnerpoints]" x=0 y=-352 z_index=0
+	draw rect color=white fill=0 h=-32 name=startbox penwidth=1 show_if=always w=-1984 x=992 y=352 z_index=0
+
+define sketchpad stimulus
+	set duration 0
+	set description "Displays stimuli"
+	draw textline center=1 color=turquoise font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Option B:<br />Tell on your <br />partner" x=384 y=-310 z_index=1
+	draw rect color=yellow fill=0 h=96 name=option_a penwidth=1 show_if=always w=192 x=-480 y=-352 z_index=0
+	draw rect color=turquoise fill=0 h=96 name=option_b penwidth=1 show_if=always w=-192 x=480 y=-352 z_index=0
+	draw textline center=1 color=yellow font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Option A:<br />Keep silent" x=-384 y=-320 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[R]" x=-192 y=-64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[R]" x=-64 y=-64 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[T]" x=64 y=-64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[S]<br />" x=192 y=-64 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[S]" x=-192 y=64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[T]" x=-64 y=64 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[P]" x=64 y=64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="[P]" x=192 y=64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="/" x=-128 y=-64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="/" x=128 y=64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="/" x=128 y=-64 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="/" x=-128 y=64 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=You x=-256 y=-160 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=choose x=-192 y=-160 z_index=0
+	draw textline center=1 color=blue font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=You x=64 y=-160 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text=choose x=128 y=-160 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your partner chooses" x=-384 y=-64 z_index=0
+	draw textline center=1 color=yellow font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="option A" x=-448 y=-32 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your partner chooses" x=-384 y=64 z_index=0
+	draw textline center=1 color=turquoise font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="option B" x=-448 y=96 z_index=0
+	draw textline center=1 color=white font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="Your points: [points]<br />Your partner's points: [partnerpoints]" x=0 y=-352 z_index=0
+	draw textline center=1 color=turquoise font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="option B" x=224 y=-160 z_index=0
+	draw textline center=1 color=yellow font_bold=no font_family=mono font_italic=no font_size=18 html=yes show_if=always text="option A" x=-96 y=-160 z_index=0
+
+define inline_script time_1
+	set description "Executes Python code"
+	___run__
+	# Import packages
+	#from psychopy import core
+	
+	# Set experiment max duration (in seconds)
+	#EXP_TIME = 1 * 60
+	
+	# Define stopwatch (or maybe not)
+	#exp_time = core.clock()
+	
+	# Start experiment time
+	#exp_time.reset()
+	
+	#if exp_time.getTime() > EXP.TIME:
+	#    break
+	    
+	__end__
+	set _prepare ""
+
+define sequence trial_sequence
+	set flush_keyboard yes
+	set description "Runs a number of items in sequence"
+	run new_sketchpad always
+	run fixation always
+	run start always
+	run new_mousetrap_response always
+	run stimulus always
+	run mousetrap_response always
+	run results_update always
+	run logger always
+
