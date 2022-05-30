@@ -49,11 +49,17 @@ mt_plot(dmt, color = "response")  # When we look at this plot, we can clearly se
 ```{r}
 # Flip and plot
 dmt <- mt_remap_symmetric(dmt,
-                          remap_xpos = "left",
+                          remap_xpos = "right",
                           remap_ypos = "up")
 
 # Replotting (just to see what happens):
 mt_plot(dmt, color = "response") # We now have a plot, where the axes have been flipped upside down so that the visualization resembles the setup of the experiment. Furthermore we have flipped it so that all responses are to the left. This makes it easier to compare between the trial types.
+
+# Also aligning the trajectories to start in (0,0) - we will need this for the AUC measurement
+dmt <- mt_align_start(dmt,
+  start=c(0,0))
+
+mt_plot(dmt, color = "response") #xxx
 ```
 
 
@@ -104,7 +110,13 @@ xpos_flips <- c(
   mean(dmt_measures$measures$xpos_flips[dmt_measures$data$response == "option_b"])
 )
 
-# The mean area under the curve across trials for each trial type:
+# The average deviation from the direct path across trials for each trial type:
+AD <- c(
+  mean(dmt_measures$measures$AD[dmt_measures$data$response == "option_a"]),
+  mean(dmt_measures$measures$AD[dmt_measures$data$response == "option_b"])
+)
+
+# The area under the curve across trials for each trial type:
 AUC <- c(
   mean(dmt_measures$measures$AUC[dmt_measures$data$response == "option_a"]),
   mean(dmt_measures$measures$AUC[dmt_measures$data$response == "option_b"])
@@ -117,7 +129,7 @@ RT <- c(
 )
 
 #Writing the measures into a data frame:
-measures_df <- data.frame(rbind(MAD, xpos_flips, AUC, RT))
+measures_df <- data.frame(rbind(MAD, xpos_flips, AD, AUC, RT))
 measures_df <- dplyr::rename(measures_df, cooperation = 1)
 measures_df <- dplyr::rename(measures_df, defection = 2)
 
@@ -137,6 +149,12 @@ t.test(
   dmt_measures$measures$xpos_flips[dmt_measures$data$response == "option_b"]
 )
 
+# AD
+t.test(
+  dmt_measures$measures$AD[dmt_measures$data$response == "option_a"],
+  dmt_measures$measures$AD[dmt_measures$data$response == "option_b"]
+)
+
 # AUC
 t.test(
   dmt_measures$measures$AUC[dmt_measures$data$response == "option_a"],
@@ -148,5 +166,14 @@ t.test(
   dmt_measures$measures$RT[dmt_measures$data$response == "option_a"],
   dmt_measures$measures$RT[dmt_measures$data$response == "option_b"]
 )
+```
+```{r}
+# MAD (deviance): expected to be higher for b than for a
+# Xpos (change of direction): expected to be higher for b 
+# AUC: expected to be higher for b than for a
+# RT: Expected to be higher for b
+
+mean(dmt_measures$measures$AUC[dmt_measures$data$response == "option_a"])
+mean(dmt_measures$measures$AUC[dmt_measures$data$response == "option_b"])
 ```
 
